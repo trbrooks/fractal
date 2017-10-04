@@ -1,0 +1,33 @@
+### Cascade Generator ###
+# This R script randomly generates a mathematical cascade
+
+library(magrittr)
+
+# Run these lines as-is
+
+splittR <- function(x) {
+  y<-c(x[2:length(x)],x[length(x)])
+  out<-NULL
+  for (i in 1:length(x)){
+    out<-c(out,runif(1,x[i],y[i]))
+  }
+  out <- c(x,out) %>%
+    unique %>%
+    sort
+  return(out)
+}
+
+cascadeR <- function(len = 10000,start = 1, end = 1000) {
+  x <- c(start,end)
+  while (length(x) <= len) {
+    x<-splittR(x)
+  }
+  return(x)
+}
+
+# Edit the values in the line below to customize your cascade.
+# "len" is the length of your cascade. Note that at high values (i.e., over ~10000),
+# the actual length of time series will approach twice the length of your chosen length.
+# "start" and "end" denote the range of your time series.
+
+x<-cascadeR(len = 10000,start = 1, end = 1000)
